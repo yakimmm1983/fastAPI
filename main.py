@@ -17,7 +17,9 @@ app.add_middleware(
     allow_headers = ["*"]
 )
 @app.post("/auth")
-async def auth_user(user_request:User_request_DTO,session: Session = Depends(get_db)):
+async def auth_user(
+        user_request:User_request_DTO,
+        session: Session = Depends(get_db)):
     try:
         user: User.User = user_service.get_user(
             session=session,login=user_request.username

@@ -11,6 +11,9 @@ class User(Base):
         return bcrypt.checkpw(password.encode(),self.hashed_password)
     def generate_token(self) -> dict:
         return {
+            "id":self.id,
+            "login":self.login,
+            "full_name":self.full_name,
             "access_token":jwt.encode(
                 {"fullname":self.full_name,"login":self.login},
                 "Secret_Key"
