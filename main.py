@@ -44,12 +44,18 @@ def siginup(
 ):
     user_request.hashed_password = User.User.hash_password(user_request.hashed_password)
     return user_service.create_user(session,user=user_request)
-@app.post('/add-note')
+
+
+
+@app.post('/add-note/{user_id}')
 def add_note(
         note_request: NoteResponseDTO = Body(),
-        session: Session = Depends(get_db)
-):
+        session: Session = Depends(get_db)):
+
     return note_service.create_note(session,note_request)
+
+
+
 @app.get('/all-note/{user_id}')
 async def get_all_notes(user_id, session: Session = Depends(get_db)):
     try:
